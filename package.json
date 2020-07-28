@@ -1,0 +1,67 @@
+{
+  "name": "dialoog",
+  "version": "1.0.0",
+  "description": "The fanciest way to open dialogs.",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prebuild": "npm run lint && npm run test && npm run clean",
+    "build": "rollup -c",
+    "test": "jest",
+    "lint": "tslint \"src/**/*.ts?(x)\"",
+    "clean": "rimraf lib/",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houfio/dialoog.git"
+  },
+  "keywords": [
+    "react",
+    "dialog"
+  ],
+  "files": [
+    "src/",
+    "lib/"
+  ],
+  "author": "houfio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/houfio/dialoog/issues"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^10.4.7",
+    "@types/jest": "^26.0.7",
+    "@types/react": "^16.9.43",
+    "jest": "^26.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.23.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-filesize": "^9.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "ts-jest": "^26.1.4",
+    "tslint": "^6.1.2",
+    "tslint-react": "^5.0.0",
+    "typescript": "^3.9.7"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "<rootDir>/tests/**/?(*.)test.ts?(x)"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  }
+}
