@@ -1,0 +1,43 @@
+import * as React from 'react';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+
+import { Focus } from './Focus';
+import { useContainer } from './hooks/useContainer';
+import { useHide } from './hooks/useHide';
+import { useKey } from './hooks/useKey';
+import { useScrollLock } from './hooks/useScrollLock';
+import { useDialoog } from './state';
+
+export function Dialoog() {
+  const [{ dialogs }, { pop, remove }] = useDialoog();
+  const [hide, unhide] = useHide();
+  const [lock, unlock] = useScrollLock();
+  const containerRef = useContainer('dialoog');
+
+  useKey('Escape', () => dialogs.length && !dialogs[dialogs.length - 1].strict && pop(), [dialogs, pop]);
+
+  useEffect(() => {
+    if (!dialogs.length) {
+      return;
+    }
+
+    hide(containerRef);
+    lock();
+
+    return () => {
+      unhide();
+      unlock();
+    };
+  }, [dialogs, hide, unhide, lock, unlock]);
+
+  return !dialogs.length || !containerRef.current ? null : createPortal((
+    <>
+      {dialogs.map((dialog, index) => (
+        <Focus key={dialog.key} enabled={index === dialogs.length - 1}>
+          {dialog.element(dialog.open, remove.c(dialog.key))}
+        </Focus>
+      ))}
+    </>
+  ), containerRef.current);
+}
