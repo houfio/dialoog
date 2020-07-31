@@ -35,7 +35,11 @@ export function Dialoog() {
     <>
       {dialogs.map((dialog, index) => (
         <Focus key={dialog.key} enabled={index === dialogs.length - 1}>
-          {dialog.element(dialog.open, remove.c(dialog.key))}
+          {dialog.element({
+            open: dialog.open,
+            remove: remove.c(dialog.key),
+            index
+          })}
         </Focus>
       ))}
     </>

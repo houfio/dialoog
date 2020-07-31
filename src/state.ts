@@ -1,27 +1,14 @@
 import { createDakpan } from 'dakpan';
 import { ReactNode } from 'react';
 
-type ElementFn = (open: boolean, remove: () => void) => ReactNode;
-
-type Options = {
-  strict?: boolean,
-  onDismiss?: () => void
-};
-
-type State = {
-  dialogs: ({
-    key: string,
-    open: boolean,
-    element: ElementFn
-  } & Options)[]
-};
+import { DialoogProps, Options, State } from './types';
 
 let key = 0;
 
 export const [DialoogProvider, useDialoog] = createDakpan<State>({
   dialogs: []
 })({
-  push: (element: ElementFn, options?: Options) => (state) => ({
+  push: (element: (props: DialoogProps) => ReactNode, options?: Options) => (state) => ({
     ...state,
     dialogs: [
       ...state.dialogs,
