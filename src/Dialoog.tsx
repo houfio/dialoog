@@ -17,7 +17,19 @@ export function Dialoog() {
 
   const capturing = dialogs.filter((dialog) => dialog.capture);
 
-  useKey('Escape', () => capturing.length && !capturing[capturing.length - 1].strict && close(), [capturing, close]);
+  useKey('Escape', () => {
+    if (!capturing.length) {
+      return;
+    }
+
+    const top = capturing[capturing.length - 1];
+
+    if (!top.strict) {
+      return;
+    }
+
+    void close(top.stack, top.key);
+  }, [capturing, close]);
 
   useEffect(() => {
     if (!capturing.length) {
