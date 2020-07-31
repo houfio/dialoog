@@ -10,12 +10,12 @@ import { useScrollLock } from './hooks/useScrollLock';
 import { useDialoog } from './state';
 
 export function Dialoog() {
-  const [{ dialogs }, { pop, remove }] = useDialoog();
+  const [{ dialogs }, { close, remove }] = useDialoog();
   const [hide, unhide] = useHide();
   const [lock, unlock] = useScrollLock();
   const containerRef = useContainer('dialoog');
 
-  useKey('Escape', () => dialogs.length && !dialogs[dialogs.length - 1].strict && pop(), [dialogs, pop]);
+  useKey('Escape', () => dialogs.length && !dialogs[dialogs.length - 1].strict && close(), [dialogs, close]);
 
   useEffect(() => {
     if (!dialogs.length) {
@@ -37,7 +37,7 @@ export function Dialoog() {
         <Focus key={dialog.key} enabled={index === dialogs.length - 1}>
           {dialog.element({
             open: dialog.open,
-            pop: pop.c(dialog.stack, dialog.key),
+            close: close.c(dialog.stack, dialog.key),
             remove: remove.c(dialog.key),
             index
           })}

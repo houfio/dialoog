@@ -8,7 +8,7 @@ let key = 0;
 export const [DialoogProvider, useDialoog] = createDakpan<State>({
   dialogs: []
 })({
-  push: (element: (props: DialoogProps) => ReactNode, options?: Options) => (state) => ({
+  open: (element: (props: DialoogProps) => ReactNode, options?: Options) => (state) => ({
     ...state,
     dialogs: [
       ...state.dialogs,
@@ -20,7 +20,7 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
       }
     ]
   }),
-  pop: (stack?: string, key?: string) => (state) => {
+  close: (stack?: string, key?: string) => (state) => {
     const dialogs = state.dialogs.filter((dialog) => dialog.stack === stack);
 
     return {
@@ -30,7 +30,7 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
           return dialog;
         }
 
-        dialog.onDismiss?.();
+        dialog.onClose?.();
 
         return {
           ...dialog,

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export type DialoogProps = {
   open: boolean,
-  pop: () => void,
+  close: () => void,
   remove: () => void,
   index: number
 };
@@ -10,7 +10,7 @@ export type DialoogProps = {
 export type Options = {
   stack?: string,
   strict?: boolean,
-  onDismiss?: () => void
+  onClose?: () => void
 };
 
 export type State = {
