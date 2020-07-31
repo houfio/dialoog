@@ -37,6 +37,7 @@ export function Dialoog() {
         <Focus key={dialog.key} enabled={index === dialogs.length - 1}>
           {dialog.element({
             open: dialog.open,
+            pop: pop.c(dialog.stack, dialog.key),
             remove: remove.c(dialog.key),
             index
           })}

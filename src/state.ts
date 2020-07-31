@@ -20,21 +20,25 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
       }
     ]
   }),
-  pop: () => (state) => ({
-    ...state,
-    dialogs: state.dialogs.map((dialog, i) => {
-      if (i !== state.dialogs.length - 1) {
-        return dialog;
-      }
+  pop: (stack?: string, key?: string) => (state) => {
+    const dialogs = state.dialogs.filter((dialog) => dialog.stack === stack);
 
-      dialog.onDismiss?.();
+    return {
+      ...state,
+      dialogs: state.dialogs.map((dialog) => {
+        if (key ? dialog.key !== key : dialogs.indexOf(dialog) !== dialogs.length - 1) {
+          return dialog;
+        }
 
-      return {
-        ...dialog,
-        open: false
-      };
-    })
-  }),
+        dialog.onDismiss?.();
+
+        return {
+          ...dialog,
+          open: false
+        };
+      })
+    };
+  },
   remove: (key: string) => (state) => ({
     ...state,
     dialogs: state.dialogs.filter((dialog) => dialog.key !== key)

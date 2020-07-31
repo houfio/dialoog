@@ -2,11 +2,13 @@ import { ReactNode } from 'react';
 
 export type DialoogProps = {
   open: boolean,
+  pop: () => void,
   remove: () => void,
   index: number
 };
 
 export type Options = {
+  stack?: string,
   strict?: boolean,
   onDismiss?: () => void
 };
