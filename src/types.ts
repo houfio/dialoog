@@ -9,6 +9,7 @@ export type DialoogProps = {
 
 export type Options = {
   stack?: string,
+  capture?: boolean,
   strict?: boolean,
   onClose?: () => void
 };

@@ -15,10 +15,12 @@ export function Dialoog() {
   const [lock, unlock] = useScrollLock();
   const containerRef = useContainer('dialoog');
 
-  useKey('Escape', () => dialogs.length && !dialogs[dialogs.length - 1].strict && close(), [dialogs, close]);
+  const capturing = dialogs.filter((dialog) => dialog.capture);
+
+  useKey('Escape', () => capturing.length && !capturing[capturing.length - 1].strict && close(), [capturing, close]);
 
   useEffect(() => {
-    if (!dialogs.length) {
+    if (!capturing.length) {
       return;
     }
 
@@ -29,12 +31,12 @@ export function Dialoog() {
       unhide();
       unlock();
     };
-  }, [dialogs, hide, unhide, lock, unlock]);
+  }, [capturing, hide, unhide, lock, unlock]);
 
   return !dialogs.length || !containerRef.current ? null : createPortal((
     <>
       {dialogs.map((dialog, index) => (
-        <Focus key={dialog.key} enabled={index === dialogs.length - 1}>
+        <Focus key={dialog.key} enabled={capturing.indexOf(dialog) === capturing.length - 1}>
           {dialog.element({
             open: dialog.open,
             close: close.c(dialog.stack, dialog.key),
