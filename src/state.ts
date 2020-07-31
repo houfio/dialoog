@@ -16,6 +16,7 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
         key: String(++key),
         open: true,
         element,
+        capture: options?.capture !== false,
         ...options
       }
     ]
