@@ -24,7 +24,7 @@ export function Dialoog() {
 
     const top = capturing[capturing.length - 1];
 
-    if (!top.strict) {
+    if (top.strict) {
       return;
     }
 
