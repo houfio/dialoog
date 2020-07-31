@@ -48,7 +48,10 @@ export function Dialoog() {
   return !dialogs.length || !containerRef.current ? null : createPortal((
     <>
       {dialogs.map((dialog) => (
-        <Focus key={dialog.key} enabled={capturing.indexOf(dialog) === capturing.length - 1}>
+        <Focus
+          key={dialog.key}
+          enabled={Boolean(capturing.length) && capturing.indexOf(dialog) === capturing.length - 1}
+        >
           {dialog.element({
             open: dialog.open,
             close: close.c(dialog.stack, dialog.key),
