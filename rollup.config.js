@@ -4,7 +4,7 @@ import filesize from 'rollup-plugin-filesize';
 import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 
-import { main, module, dependencies, devDependencies } from './package.json';
+import { main, module, dependencies, peerDependencies, devDependencies } from './package.json';
 
 export default {
   input: join(__dirname, 'src', 'index.ts'),
@@ -22,6 +22,7 @@ export default {
   ],
   external: [
     ...Object.keys(dependencies),
+    ...Object.keys(peerDependencies),
     ...Object.keys(devDependencies)
   ],
   plugins: [
