@@ -1,6 +1,6 @@
 {
   "name": "dialoog",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0",
   "description": "The fanciest way to open dialogs.",
   "main": "lib/index.js",
   "module": "lib/index.es.js",
