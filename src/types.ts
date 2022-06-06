@@ -8,6 +8,7 @@ export type DialoogProps = {
 };
 
 export type Options = {
+  key?: string,
   stack?: string,
   capture?: boolean,
   strict?: boolean,

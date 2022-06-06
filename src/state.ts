@@ -13,7 +13,7 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
     dialogs: [
       ...state.dialogs,
       {
-        key: String(++key),
+        key: options?.key ?? String(++key),
         open: true,
         element,
         capture: options?.capture !== false,
@@ -49,4 +49,3 @@ export const [DialoogProvider, useDialoog] = createDakpan<State>({
     dialogs: []
   })
 });
-
