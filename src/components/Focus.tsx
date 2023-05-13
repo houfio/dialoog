@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
-import { useLayoutEffect } from './hooks/useLayoutEffect';
+import { useLayoutEffect } from '../hooks/useLayoutEffect';
 
 type Props = {
   children?: ReactNode,

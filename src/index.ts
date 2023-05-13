@@ -1,3 +1,2 @@
-export { DialoogProvider, useDialoog } from './state';
-export { Dialoog } from './Dialoog';
+export { Dialoog } from './components/Dialoog';
 export { DialoogProps } from './types';

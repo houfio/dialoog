@@ -1,15 +1,22 @@
-import { useRef } from 'react';
+import { useInsertionEffect, useRef } from 'react';
 
-export function useContainer(id: string) {
-  const browser = typeof document !== 'undefined';
-  const ref = useRef(browser ? document.getElementById(id) : null);
+export function useContainer() {
+  const ref = useRef<HTMLElement>();
 
-  if (!ref.current && browser) {
-    ref.current = document.createElement('div');
-    ref.current.id = id;
+  useInsertionEffect(() => {
+    ref.current = document.getElementById('dialoog') ?? undefined;
 
-    document.body.appendChild(ref.current);
-  }
+    if (!ref.current) {
+      ref.current = document.createElement('div');
+      ref.current.id = 'dialoog';
+
+      document.body.appendChild(ref.current);
+    }
+
+    return () => {
+      document.body.removeChild(ref.current!);
+    };
+  }, []);
 
   return ref;
 }
