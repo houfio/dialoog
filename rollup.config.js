@@ -1,36 +1,32 @@
-import { join } from 'path';
+import { createRequire } from 'node:module';
 import commonjs from '@rollup/plugin-commonjs';
-import filesize from 'rollup-plugin-filesize';
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 
-import { main, module, dependencies, peerDependencies, devDependencies } from './package.json';
+const require = createRequire(import.meta.url);
+const { main, module, peerDependencies, devDependencies } = require('./package.json');
 
 export default {
-  input: join(__dirname, 'src', 'index.ts'),
+  input: './src/index.ts',
   output: [
     {
-      file: join(__dirname, main),
+      file: main,
       format: 'cjs',
       sourcemap: true
     },
     {
-      file: join(__dirname, module),
+      file: module,
       format: 'es',
       sourcemap: true
     }
   ],
   external: [
-    ...Object.keys(dependencies),
     ...Object.keys(peerDependencies),
     ...Object.keys(devDependencies)
   ],
   plugins: [
     resolve(),
-    typescript({
-      tsconfig: './tsconfig.json'
-    }),
     commonjs(),
-    filesize()
+    typescript()
   ]
 };
